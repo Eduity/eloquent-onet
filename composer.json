@@ -1,27 +1,32 @@
 {
-  "name": "vendor/package",
-  "description": "",
-  "keywords": [],
-  "homepage": "",
+  "name": "eduity/eloquent-onet",
+  "description": "Integrates a Laravel 5 application with O*NET data.",
   "license": "MIT",
   "authors": [
     {
-      "name": "",
-      "email": ""
+      "name": "Greg Brock",
+      "email": "greg@gridprinciples.com"
     }
   ],
   "require": {
     "php": ">=5.4.0",
     "illuminate/config": "~5.0",
-    "illuminate/support": "~5.0"
+    "illuminate/support": "~5.0",
+    "illuminate/database": "~5.0",
+    "chumper/zipper": "0.6.x"
   },
   "require-dev": {
-    "phpunit/phpunit": "~4.0"
+    "phpunit/phpunit": "~4.0",
+    "laravel/laravel": "^5.2"
   },
   "autoload": {
     "psr-4": {
-      "Vendor\\Package\\": "src/"
+      "Eduity\\EloquentOnet\\": "src/"
     }
   },
-  "minimum-stability": "dev"
+  "autoload-dev": {
+    "psr-4": {
+      "Eduity\\EloquentOnet\\Tests\\": "tests/"
+    }
+  }
 }
