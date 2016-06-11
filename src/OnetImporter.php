@@ -91,13 +91,13 @@ class OnetImporter
                     $importNumber = intval(substr($filename, 0, 2));
 
                     if (!Schema::hasTable($tableName)) {
-                        // $this->console->writeln('Importing "' . $filename . '"...');
                         DB::unprepared(file_get_contents($filepath));
                     }
                 }
                 $progress->advance();
             }
             $progress->finish();
+            $this->console->writeln("");
         }
     }
 
