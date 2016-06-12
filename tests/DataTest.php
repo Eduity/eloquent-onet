@@ -21,11 +21,14 @@ class DataTest extends TestCase {
 	/** @test */
 	public function package_models_exist()
 	{
+		$this->assertGreaterThan(0, \Eduity\EloquentOnet\Models\OnetAbility::count());
 		$this->assertGreaterThan(0, \Eduity\EloquentOnet\Models\OnetAlternateOccupationTitle::count());
 		$this->assertGreaterThan(0, \Eduity\EloquentOnet\Models\OnetCommodity::count());
 		$this->assertGreaterThan(0, \Eduity\EloquentOnet\Models\OnetContent::count());
 		$this->assertGreaterThan(0, \Eduity\EloquentOnet\Models\OnetDetailedWorkActivity::count());
+		$this->assertGreaterThan(0, \Eduity\EloquentOnet\Models\OnetJobZone::count());
 		$this->assertGreaterThan(0, \Eduity\EloquentOnet\Models\OnetOccupation::count());
+		$this->assertGreaterThan(0, \Eduity\EloquentOnet\Models\OnetReportedOccupationTitle::count());
 		$this->assertGreaterThan(0, \Eduity\EloquentOnet\Models\OnetScale::count());
 		$this->assertGreaterThan(0, \Eduity\EloquentOnet\Models\OnetTask::count());
 		$this->assertGreaterThan(0, \Eduity\EloquentOnet\Models\OnetTaskCategory::count());
