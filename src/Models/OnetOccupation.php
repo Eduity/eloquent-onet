@@ -41,6 +41,20 @@ class OnetOccupation extends Model
         ;
     }
 
+    public function alternate_titles()
+    {
+        return $this
+            ->hasMany(\Eduity\EloquentOnet\Models\OnetAlternateOccupationTitle::class, 'onetsoc_code')
+        ;
+    }
+
+    public function reported_titles()
+    {
+        return $this
+            ->hasMany(\Eduity\EloquentOnet\Models\OnetReportedOccupationTitle::class, 'onetsoc_code')
+        ;
+    }
+
     /** SCOPES */
 
     /** ACCESSORS AND MUTATORS */
