@@ -24,26 +24,25 @@ class OnetAbility extends \Eduity\EloquentOnet\Models\OnetContent
     /** RELATIONSHIPS */
     public function occupations()
     {
-    	return $this->occupations_by_importance();
+    	return $this->occupations_by_importance(3);
     }
 
-    public function occupations_by_importance($atLeast = '3')
+    public function occupations_by_importance($atLeast = null)
     {
     	return $this->occupations_by_scale('IM', $atLeast);
     }
 
-    public function occupations_by_level()
+    public function occupations_by_level($atLeast = null)
     {
-    	return $this->occupations_by_scale('LV');
+    	return $this->occupations_by_scale('LV', $atLeast);
     }
 
-    public function occupations_by_scale($scale, $atLeast = null)
+    protected function occupations_by_scale($scale, $atLeast = null)
     {
-    	
     	$query = $this
             ->belongsToMany(\Eduity\EloquentOnet\Models\OnetOccupation::class, 'onet_abilities', 'element_id', 'onetsoc_code');
 
-        if($atLeast) {
+        if($atLeast !== null) {
             $query
 	            // O*NET itself seems to only show >3 on their sites
 	        	->where('data_value' , '>=', $atLeast);

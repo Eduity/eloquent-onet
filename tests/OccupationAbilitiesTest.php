@@ -2,6 +2,7 @@
 
 namespace Eduity\EloquentOnet\Tests;
 
+use Eduity\EloquentOnet\Models\OnetAbility;
 use Eduity\EloquentOnet\Models\OnetOccupation;
 use Eduity\EloquentOnet\Tests\Cases\TestCase;
 use Illuminate\Support\Facades\Schema;

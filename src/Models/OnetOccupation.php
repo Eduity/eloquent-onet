@@ -13,15 +13,31 @@ class OnetOccupation extends Model
     /** RELATIONSHIPS */
     public function abilities()
     {
-        // TODO: need to represent the LV (Level) Scale.  This only takes IM (Importance) into account.
-        return $this
-            ->belongsToMany(\Eduity\EloquentOnet\Models\OnetAbility::class, 'onet_abilities', 'onetsoc_code', 'element_id')
+        return $this->abilities_by_importance(3);
+    }
 
+    public function abilities_by_importance($atLeast = null)
+    {
+        return $this->abilities_by_scale('IM', $atLeast);
+    }
+
+    public function abilities_by_level($atLeast = null)
+    {
+        return $this->abilities_by_scale('LV', $atLeast);
+    }
+
+    protected function abilities_by_scale($scale, $atLeast = null)
+    {
+        $query = $this
+            ->belongsToMany(\Eduity\EloquentOnet\Models\OnetAbility::class, 'onet_abilities', 'onetsoc_code', 'element_id');
+
+        if($atLeast !== null) {
             // "Important" only, to avoid duplicate records
-            ->where('scale_id', 'IM')
+            $query->where('scale_id', 'IM');
+        }
             
             // O*NET itself seems to only show >3 on their sites
-            ->where('data_value' , '>=', 3)
+        $query->where('data_value' , '>=', 3)
             
             // If they recommend it be suppressed, let it.
             ->where('recommend_suppress', 'N')
@@ -39,6 +55,8 @@ class OnetOccupation extends Model
                 'domain_source',
             ])
         ;
+
+        return $query;
     }
 
     public function alternate_titles()
