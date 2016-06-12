@@ -4,10 +4,10 @@ namespace Eduity\EloquentOnet\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class OnetOccupation extends Model
+class OnetContent extends Model
 {
-    protected $table = 'onet_occupation_data';
-    protected $primaryKey = 'onetsoc_code';
+    protected $table = 'onet_content_model_reference';
+    protected $primaryKey = 'element_id';
     public $incrementing = false;
 
     /** RELATIONSHIPS */

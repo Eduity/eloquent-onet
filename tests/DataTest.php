@@ -2,7 +2,6 @@
 
 namespace Eduity\EloquentOnet\Tests;
 
-use Eduity\EloquentOnet\Models\OnetOccupation;
 use Eduity\EloquentOnet\Tests\Cases\TestCase;
 use Illuminate\Support\Facades\Schema;
 
@@ -20,8 +19,16 @@ class DataTest extends TestCase {
 	}
 
 	/** @test */
-	public function occupations_exist()
+	public function package_models_exist()
 	{
-		$this->assertTrue(OnetOccupation::first()->exists);
+		$this->assertGreaterThan(0, \Eduity\EloquentOnet\Models\OnetAlternateOccupationTitle::count());
+		$this->assertGreaterThan(0, \Eduity\EloquentOnet\Models\OnetCommodity::count());
+		$this->assertGreaterThan(0, \Eduity\EloquentOnet\Models\OnetContent::count());
+		$this->assertGreaterThan(0, \Eduity\EloquentOnet\Models\OnetDetailedWorkActivity::count());
+		$this->assertGreaterThan(0, \Eduity\EloquentOnet\Models\OnetOccupation::count());
+		$this->assertGreaterThan(0, \Eduity\EloquentOnet\Models\OnetScale::count());
+		$this->assertGreaterThan(0, \Eduity\EloquentOnet\Models\OnetTask::count());
+		$this->assertGreaterThan(0, \Eduity\EloquentOnet\Models\OnetTaskCategory::count());
+		$this->assertGreaterThan(0, \Eduity\EloquentOnet\Models\OnetToolOrTechnology::count());
 	}
 }
