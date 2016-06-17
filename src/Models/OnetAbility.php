@@ -4,22 +4,11 @@ namespace Eduity\EloquentOnet\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class OnetAbility extends \Eduity\EloquentOnet\Models\OnetContent
+class OnetAbility extends \Eduity\EloquentOnet\Models\OnetContentType
 {
     protected $table = 'onet_content_model_reference';
     protected $primaryKey = 'element_id';
-
-	/**
-     * The "booting" method of the model.
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::addGlobalScope(new \Eduity\EloquentOnet\Scopes\AbilityScope);
-    }
+    public $content_id_range = '1.A';
 
     /** RELATIONSHIPS */
     public function occupations()
@@ -67,7 +56,6 @@ class OnetAbility extends \Eduity\EloquentOnet\Models\OnetContent
                 'date_updated',
                 'domain_source',
             ])
-            ->orderBy('data_value', 'desc')
         ;
 
         return $query;
