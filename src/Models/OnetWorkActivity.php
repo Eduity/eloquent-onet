@@ -5,11 +5,11 @@ namespace Eduity\EloquentOnet\Models;
 use Eduity\EloquentOnet\Models\OnetContentType;
 use Illuminate\Database\Eloquent\Model;
 
-class OnetAbility extends OnetContentType
+class OnetWorkActivity extends OnetContentType
 {
     protected $table = 'onet_content_model_reference';
     protected $primaryKey = 'element_id';
-    public $content_id_range = '1.A';
+    public $content_id_range = '4.A';
 
     /** RELATIONSHIPS */
     public function occupations()
@@ -30,7 +30,7 @@ class OnetAbility extends OnetContentType
     protected function occupations_by_scale($scale, $atLeast = null)
     {
     	$query = $this
-            ->belongsToMany(\Eduity\EloquentOnet\Models\OnetOccupation::class, 'onet_abilities', 'element_id', 'onetsoc_code');
+            ->belongsToMany(\Eduity\EloquentOnet\Models\OnetOccupation::class, 'onet_work_activities', 'element_id', 'onetsoc_code');
 
         if($atLeast !== null) {
             $query
@@ -45,7 +45,7 @@ class OnetAbility extends OnetContentType
             // If they recommend it be suppressed, let it.
             ->where('recommend_suppress', 'N')
 
-            // Include extra data from `onet_abilities`
+            // Include extra data from `onet_work_activities`
             ->withPivot([
                 'data_value',
                 'n',
