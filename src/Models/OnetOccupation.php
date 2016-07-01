@@ -73,6 +73,22 @@ class OnetOccupation extends Model
         ;
     }
 
+    public function changers()
+    {
+        return $this
+            ->belongsToMany(\Eduity\EloquentOnet\Models\OnetOccupation::class, 'onet_career_changers_matrix', 'onetsoc_code', 'related_onetsoc_code')
+            ->withPivot('related_index')
+            ->orderBy('onet_career_changers_matrix.related_index');
+    }
+
+    public function starters()
+    {
+        return $this
+            ->belongsToMany(\Eduity\EloquentOnet\Models\OnetOccupation::class, 'onet_career_starters_matrix', 'onetsoc_code', 'related_onetsoc_code')
+            ->withPivot('related_index')
+            ->orderBy('onet_career_starters_matrix.related_index');
+    }
+
     /** SCOPES */
 
     /** ACCESSORS AND MUTATORS */
