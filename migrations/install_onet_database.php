@@ -14,7 +14,7 @@ class InstallOnetDatabase extends Migration
 
     public function up()
     {
-    	$this->importer->downloadLatestArchive();
+    	$this->importer->downloadData();
     	$this->importer->importLatestArchive();
     	$this->importer->renameTables();
     }

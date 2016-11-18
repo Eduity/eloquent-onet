@@ -37,6 +37,8 @@ class EloquentOnetServiceProvider extends LaravelServiceProvider
     {
         // Bind any implementations.
         $this->app->register(\Chumper\Zipper\ZipperServiceProvider::class);
+        $this->app->register(\Collective\Bus\BusServiceProvider::class);
+        $this->app->register(\Maatwebsite\Excel\ExcelServiceProvider::class);
     }
 
     /**

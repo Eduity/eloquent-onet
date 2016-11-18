@@ -62,6 +62,8 @@ abstract class TestCase extends BaseTestCase
 
         // $migrationFiles = array_merge($laravelMigrations, $packageMigrations);
 
+        // dd($packageMigrations);
+
         foreach ($packageMigrations as $file) {
             $fileSystem->requireOnce($file);
             $migrationClass = $classFinder->findClass($file);

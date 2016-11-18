@@ -17,7 +17,15 @@ class OnetContentTypeScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        return $builder->where('onet_content_model_reference.element_id', 'LIKE', $this->getModelRange($model));
+        $ranges = $this->getModelRange($model);
+
+        $builder->where(function ($query) use ($model, $ranges) {
+            foreach($ranges as $range) {
+                $query->orWhere('onet_content_model_reference.element_id', 'LIKE', $range);
+            }
+        });
+
+        return $builder;
     }
 
     protected function getModelRange(Model $model)
@@ -26,6 +34,16 @@ class OnetContentTypeScope implements Scope
             throw new \Exception('Must set $content_id_range on "' . class_basename($model) . '", an OnetContentType model.');
         }
 
-        return str_pad($model->content_id_range, 9, '.%');
+        $ids = $model->content_id_range;
+
+        if(!is_array($model->content_id_range)) {
+            $ids = [$model->content_id_range];
+        }
+
+        foreach($ids as $key => $id) {
+            $ids[$key] .= '.%';
+        }
+
+        return $ids;
     }
 }

@@ -59,6 +59,54 @@ class OnetOccupation extends Model
         return $query;
     }
 
+    public function skills()
+    {
+        return $this->skills_by_importance(0);
+    }
+
+    public function skills_by_importance($atLeast = null)
+    {
+        return $this->skills_by_scale('IM', $atLeast);
+    }
+
+    public function skills_by_level($atLeast = null)
+    {
+        return $this->skills_by_scale('LV', $atLeast);
+    }
+
+    protected function skills_by_scale($scale, $atLeast = null)
+    {
+        $query = $this
+            ->belongsToMany(\Eduity\EloquentOnet\Models\OnetSkill::class, 'onet_skills', 'onetsoc_code', 'element_id');
+
+        if($atLeast !== null) {
+            // "Important" only, to avoid duplicate records
+            $query->where('scale_id', 'IM');
+        }
+            
+            // O*NET itself seems to only show >3 on their sites
+        $query->where('data_value' , '>=', $atLeast)
+            
+            // If they recommend it be suppressed, let it.
+            ->where('recommend_suppress', 'N')
+
+            // Include extra data from `onet_skills`
+            ->withPivot([
+                'data_value',
+                'n',
+                'standard_error',
+                'lower_ci_bound',
+                'upper_ci_bound',
+                'recommend_suppress',
+                'not_relevant',
+                'date_updated',
+                'domain_source',
+            ])
+        ;
+
+        return $query;
+    }
+
     public function activities()
     {
         return $this->activities_by_importance(2.95);
@@ -137,7 +185,28 @@ class OnetOccupation extends Model
             ->orderBy('onet_career_starters_matrix.related_index');
     }
 
+    public function meta()
+    {
+        return $this
+            ->hasMany(\Eduity\EloquentOnet\Models\OnetOccupationMetadata::class, 'onetsoc_code', 'onetsoc_code');
+    }
+
+    public function tasks()
+    {
+        return $this->hasMany(\Eduity\EloquentOnet\Models\OnetTask::class, 'onetsoc_code');
+    }
+
+    public function tools_and_technology()
+    {
+        return $this->hasMany(\Eduity\EloquentOnet\Models\OnetToolOrTechnology::class, 'onetsoc_code');
+    }
+    
+
     /** SCOPES */
 
     /** ACCESSORS AND MUTATORS */
+    public function getNaicsAttribute()
+    {
+        return $this->meta()->byItem('naics')->orderBy('percent');
+    }
 }

@@ -13,7 +13,9 @@
     "illuminate/config": "~5.0",
     "illuminate/support": "~5.0",
     "illuminate/database": "~5.0",
-    "chumper/zipper": "0.6.x"
+    "chumper/zipper": "0.6.x",
+    "maatwebsite/excel": "~2.1.0",
+    "laravelcollective/bus": "^5.2"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.0",

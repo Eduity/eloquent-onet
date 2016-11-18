@@ -11,6 +11,10 @@ class OnetToolOrTechnology extends Model
     public $incrementing = false;
 
     /** RELATIONSHIPS */
+    public function occupation()
+    {
+    	return $this->belongsTo(OnetOccupation::class, 'onetsoc_code', 'onetsoc_code');
+    }
 
     /** SCOPES */
 
