@@ -16,12 +16,12 @@ class OnetOccupation extends Model
         return $this->abilities_by_importance(3);
     }
 
-    public function abilities_by_importance($atLeast = null)
+    public function abilities_by_importance($atLeast = 0)
     {
         return $this->abilities_by_scale('IM', $atLeast);
     }
 
-    public function abilities_by_level($atLeast = null)
+    public function abilities_by_level($atLeast = 0)
     {
         return $this->abilities_by_scale('LV', $atLeast);
     }
