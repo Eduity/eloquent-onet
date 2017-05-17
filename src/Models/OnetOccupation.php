@@ -206,7 +206,7 @@ class OnetOccupation extends Model
         return $this->work_context_by_context();
     }
 
-    public function work_context_by_context($atLeast = null)
+    public function work_context_by_context($atLeast = 0)
     {
         return $this->work_context_by_scale('CX', $atLeast);
     }
