@@ -200,6 +200,49 @@ class OnetOccupation extends Model
     {
         return $this->hasMany(\Eduity\EloquentOnet\Models\OnetToolOrTechnology::class, 'onetsoc_code');
     }
+
+    public function work_context()
+    {
+        return $this->work_context_by_context();
+    }
+
+    public function work_context_by_context($atLeast = null)
+    {
+        return $this->work_context_by_scale('CX', $atLeast);
+    }
+
+    protected function work_context_by_scale($scale, $atLeast = null)
+    {
+        $query = $this
+            ->belongsToMany(\Eduity\EloquentOnet\Models\OnetWorkContext::class, 'onet_work_context', 'onetsoc_code', 'element_id');
+
+        if($atLeast !== null) {
+            // "Important" only, to avoid duplicate records
+            $query->where('scale_id', $scale);
+            $query->where('data_value', '>=', $atLeast);
+        }
+            
+        $query
+            // If they recommend it be suppressed, let it.
+            ->where('recommend_suppress', 'N')
+
+            // Include extra data from `onet_work_activities`
+            ->withPivot([
+                'category',
+                'data_value',
+                'n',
+                'standard_error',
+                'lower_ci_bound',
+                'upper_ci_bound',
+                'recommend_suppress',
+                'not_relevant',
+                'date_updated',
+                'domain_source',
+            ])
+        ;
+
+        return $query;
+    }
     
 
     /** SCOPES */
